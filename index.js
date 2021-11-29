@@ -1,4 +1,5 @@
 'use strict';
+const fs = require('fs');
 
 module.exports = {
   name: require('./package').name,
@@ -20,8 +21,11 @@ module.exports = {
         ? options.unregisterIfExcluded
         : true;
 
+    let unregisterOthers = Boolean(options.unregisterOthers);
+
     this._shouldInclude = shouldInclude;
     this._unregisterIfExcluded = unregisterIfExcluded;
+    this._unregisterOthers = unregisterOthers;
 
     this._fixFingerprintingSettings();
   },
@@ -32,24 +36,20 @@ module.exports = {
     }
 
     if (this._shouldInclude) {
-      return `<script data-sw-registration>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./ember-minimal-service-worker/sw.js')
-    .catch((error) => {
-      console.error('Could not setup service worker: ' + error);
-    });
-  }
-</script>`;
-    } else if (this._unregisterIfExcluded) {
-      return `<script data-sw-unregistration>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      for (let registration of registrations) {
-        registration.unregister();
+      let content = fs.readFileSync('./lib/register-sw.html', 'utf-8');
+
+      if (this._unregisterOthers) {
+        let unregisterContent = fs.readFileSync(
+          './lib/unregister-others.html',
+          'utf-8'
+        );
+        return `${content}\n${unregisterContent}`;
       }
-    });
-  }
-</script>`;
+
+      return content;
+    } else if (this._unregisterIfExcluded) {
+      let content = fs.readFileSync('./lib/unregister-all.html', 'utf-8');
+      return content;
     }
   },
 

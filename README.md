@@ -33,6 +33,11 @@ let app = new EmberAddon(defaults, {
 
 In addition, when the service worker is _not_ included (=usually in dev mode), all service workers will be unregistered to avoid unexpected development behavior. You can overwrite this behavior by setting `unregisterIfExcluded: true` in the config.
 
+### Unregister other service workers
+
+If you are migrating from another service worker, the "old" service worker will continue to exist even if you ship the new, minimal one. 
+In that case, you can set `unregisterOthers: true` in your config, which will try to unregister all other service workers.
+
 ### Caching
 
 Allthough this service worker does nothing, it is still a good idea to ensure the service worker _itself_ is not cached.

@@ -20,8 +20,15 @@ module.exports = {
     },
     {
       // test files:
-      files: ['tests/**/*-test.{js,ts}'],
+      files: ['tests/**/*-test.js'],
       ...require('fabscale-eslint-config/lib/ember-tests'),
+    },
+    {
+      // sw files
+      files: ['lib/*.js'],
+      rules: {
+        'no-console': 0,
+      },
     },
   ],
 };
