@@ -3,8 +3,8 @@ import { visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import config from 'dummy/config/environment';
 
-// This is based on running the tests/app with EXCLUDE_SW=true or not
-const { isExcludeMode } = config;
+// This is based on running the tests/app with EXCLUDE_SW=true / UNREGISTER_OTHERS=true or not
+const { isExcludeMode, shouldUnregisterOthers } = config;
 
 module('Acceptance | service worker', function (hooks) {
   setupApplicationTest(hooks);
@@ -22,5 +22,8 @@ module('Acceptance | service worker', function (hooks) {
     assert
       .dom('[data-sw-unregister-all]', document.body)
       .exists({ count: isExcludeMode ? 1 : 0 });
+    assert
+      .dom('[data-sw-unregister-others]', document.body)
+      .exists({ count: shouldUnregisterOthers && !isExcludeMode ? 1 : 0 });
   });
 });

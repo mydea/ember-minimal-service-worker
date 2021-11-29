@@ -23,6 +23,7 @@ module.exports = function (environment) {
     },
 
     isExcludeMode: !!process.env.EXCLUDE_SW,
+    shouldUnregisterOthers: !!process.env.UNREGISTER_OTHERS,
   };
 
   if (environment === 'development') {

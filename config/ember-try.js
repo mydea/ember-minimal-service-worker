@@ -50,8 +50,31 @@ module.exports = async function () {
       embroiderSafe(),
       embroiderOptimized(),
       {
-        name: 'ember-release-no-sw',
+        name: 'ember-no-sw',
         env: {
+          EXCLUDE_SW: true,
+        },
+        npm: {
+          devDependencies: {
+            'ember-source': await getChannelURL('release'),
+          },
+        },
+      },
+      {
+        name: 'ember-unregister-others',
+        env: {
+          UNREGISTER_OTHERS: true,
+        },
+        npm: {
+          devDependencies: {
+            'ember-source': await getChannelURL('release'),
+          },
+        },
+      },
+      {
+        name: 'ember-no-sw-unregister-others',
+        env: {
+          UNREGISTER_OTHERS: true,
           EXCLUDE_SW: true,
         },
         npm: {
