@@ -34,7 +34,9 @@ jobs:
             ember-release,
             ember-canary,
             embroider-optimized,
-            ember-release-no-sw,
+            ember-no-sw,
+            ember-unregister-others,
+            ember-no-sw-unregister-others,
             embroider-no-sw,
           ]
 

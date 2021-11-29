@@ -7,7 +7,7 @@ module.exports = function (defaults) {
     'ember-minimal-service-worker': {
       include: !process.env.EXCLUDE_SW,
       unregisterIfExcluded: true,
-      unregisterOthers: false,
+      unregisterOthers: !!process.env.UNREGISTER_OTHERS,
     },
   });
 
