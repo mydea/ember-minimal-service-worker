@@ -1,6 +1,6 @@
 {
   "name": "ember-minimal-service-worker",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Register a minimal service worker to allow 'Add to homescreen'.",
   "keywords": [
     "ember-addon"
