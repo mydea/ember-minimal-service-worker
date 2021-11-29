@@ -33,6 +33,34 @@ let app = new EmberAddon(defaults, {
 
 In addition, when the service worker is _not_ included (=usually in dev mode), all service workers will be unregistered to avoid unexpected development behavior. You can overwrite this behavior by setting `unregisterIfExcluded: true` in the config.
 
+### Caching
+
+Allthough this service worker does nothing, it is still a good idea to ensure the service worker _itself_ is not cached.
+For example, if you use `ember-cli-deploy-s3` to upload your assets, you could use a configuration like this:
+
+```js
+let uncachedFilesGlobPattern = 'ember-minimal-service-worker/sw.js';
+
+let ENV = {
+  's3-assets': {
+    fileIgnorePattern: uncachedFilesGlobPattern,
+    bucket: config.bucket,
+    region: config.region,
+  },
+
+  's3-assets-no-cache': {
+    filePattern: uncachedFilesGlobPattern,
+    cacheControl: 'no-cache, no-store, must-revalidate',
+    bucket: config.bucket,
+    region: config.region,
+    manifestPath: null,
+    allowOverwrite: true,
+  },
+};
+```
+
+This way, if you ever decide to ship a _proper_ service worker, you will not have to deal with unexpired sw.js files.
+
 ## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
