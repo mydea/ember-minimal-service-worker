@@ -22,7 +22,7 @@
     "test": "npm-run-all lint test:*",
     "test:ember-include": "ember test",
     "test:ember-exclude": "EXCLUDE_SW=true ember test",
-    "test-one": "ember try:one"
+    "test-matrix": "ember try:one"
   },
   "dependencies": {
     "ember-cli-babel": "^7.26.6"

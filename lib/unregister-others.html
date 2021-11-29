@@ -1,0 +1,11 @@
+<script data-sw-unregister-others>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        if (!registration.scope.includes('ember-minimal-service-worker')) {
+          registration.unregister();
+        }
+      }
+    });
+  }
+</script>
