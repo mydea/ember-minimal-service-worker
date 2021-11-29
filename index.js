@@ -1,5 +1,6 @@
 'use strict';
 const fs = require('fs');
+const path = require('path');
 
 module.exports = {
   name: require('./package').name,
@@ -35,12 +36,17 @@ module.exports = {
       return;
     }
 
+    let baseDir = path.join(__dirname, './lib');
+
     if (this._shouldInclude) {
-      let content = fs.readFileSync('./lib/register-sw.html', 'utf-8');
+      let content = fs.readFileSync(
+        path.join(baseDir, 'register-sw.html'),
+        'utf-8'
+      );
 
       if (this._unregisterOthers) {
         let unregisterContent = fs.readFileSync(
-          './lib/unregister-others.html',
+          path.join(baseDir, 'unregister-others.html'),
           'utf-8'
         );
         return `${content}\n${unregisterContent}`;
@@ -48,7 +54,10 @@ module.exports = {
 
       return content;
     } else if (this._unregisterIfExcluded) {
-      let content = fs.readFileSync('./lib/unregister-all.html', 'utf-8');
+      let content = fs.readFileSync(
+        path.join(baseDir, 'unregister-all.html'),
+        'utf-8'
+      );
       return content;
     }
   },
