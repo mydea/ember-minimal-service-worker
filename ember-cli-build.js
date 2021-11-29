@@ -4,7 +4,10 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
-    // Add options here
+    'ember-minimal-service-worker': {
+      include: !process.env.EXCLUDE_SW,
+      unregisterIfExcluded: true,
+    },
   });
 
   /*

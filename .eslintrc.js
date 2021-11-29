@@ -1,25 +1,7 @@
-'use strict';
-
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-    ecmaFeatures: {
-      legacyDecorators: true,
-    },
-  },
-  plugins: ['ember'],
-  extends: [
-    'eslint:recommended',
-    'plugin:ember/recommended',
-    'plugin:prettier/recommended',
-  ],
-  env: {
-    browser: true,
-  },
-  rules: {},
+  ...require('fabscale-eslint-config/lib/ember'),
+
   overrides: [
     // node files
     {
@@ -34,20 +16,12 @@ module.exports = {
         './config/**/*.js',
         './tests/dummy/config/**/*.js',
       ],
-      parserOptions: {
-        sourceType: 'script',
-      },
-      env: {
-        browser: false,
-        node: true,
-      },
-      plugins: ['node'],
-      extends: ['plugin:node/recommended'],
+      ...require('fabscale-eslint-config/lib/node'),
     },
     {
-      // Test files:
+      // test files:
       files: ['tests/**/*-test.{js,ts}'],
-      extends: ['plugin:qunit/recommended'],
+      ...require('fabscale-eslint-config/lib/ember-tests'),
     },
   ],
 };
