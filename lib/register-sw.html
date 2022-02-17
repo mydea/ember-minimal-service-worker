@@ -1,7 +1,7 @@
 <script data-sw-registration>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register('./ember-minimal-service-worker/sw.js')
+      .register('/ember-minimal-service-worker/sw.js')
       .catch((error) => {
         console.error('Could not setup service worker: ' + error);
       });
